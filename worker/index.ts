@@ -98,13 +98,13 @@ function parseCookies(header: string | undefined): Map<string, string> {
   return map;
 }
 
-async function getSession(c: { env: MyEnv; req: { header: (name: string) => string | undefined } }): Promise<{ sid: string; userId: string; name: string | null; newExp: number } | null> {
+async function getSession(c: { env: MyEnv; req: { header: (name: string) => string | undefined } }): Promise<{ sid: string; userId: string; name: string | null; email: string | null; newExp: number } | null> {
   const cookies = parseCookies(c.req.header("cookie"));
   const sid = cookies.get("sid");
   if (!sid) return null;
 
   const { results } = await c.env.DB.prepare(
-    `SELECT sessions.sid as sid, sessions.user_id as user_id, sessions.expires_at as expires_at, users.name as name
+    `SELECT sessions.sid as sid, sessions.user_id as user_id, sessions.expires_at as expires_at, users.name as name, users.email as email
      FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.sid = ?`
   ).bind(sid).all();
   if (results.length === 0) return null;
@@ -121,7 +121,7 @@ async function getSession(c: { env: MyEnv; req: { header: (name: string) => stri
     `UPDATE sessions SET expires_at = ?, last_seen = ? WHERE sid = ?`
   ).bind(newExp, now, sid).run();
 
-  return { sid, userId: record.user_id, name: record.name ?? null, newExp };
+  return { sid, userId: record.user_id, name: record.name ?? null, email: record.email ?? null, newExp };
 }
 
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
@@ -450,7 +450,7 @@ app.post("/auth/google", async (c) => {
     const { sid, expires } = await createSession(c, claims.sub);
     console.log("Session created, sid:", sid);
     const cookie = setSessionCookie(sid, expires);
-    return c.json({ user: { id: claims.sub, name: claims.name } }, {
+    return c.json({ user: { id: claims.sub, name: claims.name, email: claims.email } }, {
       headers: { "Set-Cookie": cookie }
     });
   } catch (err) {
@@ -464,7 +464,17 @@ app.get("/me", async (c) => {
   if (!session) {
     return c.json({ user: null }, 401);
   }
-  return c.json({ user: { id: session.userId, name: session.name } });
+  return c.json({ user: { id: session.userId, name: session.name, email: session.email } });
+});
+
+app.post("/logout", async (c) => {
+  const session = await getSession(c);
+  if (session) {
+    await c.env.DB.prepare('DELETE FROM sessions WHERE sid = ?').bind(session.sid).run();
+  }
+  return c.json({ success: true }, {
+    headers: { "Set-Cookie": "sid=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0" }
+  });
 });
 
 export default app;

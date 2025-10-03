@@ -1,44 +1,18 @@
 import { useState, useRef, useEffect } from 'react'
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 import { type Extraction } from './types'
-import LineItems from './LineItems'
+import ReceiptDisplay from './ReceiptDisplay'
 import sample from './sample.json'
 import Login from './components/Login'
+import { useAuth } from './AuthContext'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [authLoading, setAuthLoading] = useState(true)
-  const [user, setUser] = useState<{ id: string; name?: string } | null>(null)
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await fetch("/me")
-        if (response.ok) {
-          const data = await response.json()
-          setUser(data.user)
-          setLoggedIn(true)
-        }
-      } catch (err) {
-        console.error("Auth check failed", err)
-      } finally {
-        setAuthLoading(false)
-      }
-    }
-    checkAuth()
-  }, [])
-
-  if (authLoading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
-  }
-
-  if (!loggedIn) {
-    return <Login onLogin={() => setLoggedIn(true)} />
-  }
-
+  const { loggedIn, user, authLoading, logout } = useAuth()
   const [file, setFile] = useState<File | null>(null)
   const [extraction, setExtraction] = useState<Extraction | null>(sample.extraction)
   const [loading, setLoading] = useState(false)
@@ -47,6 +21,14 @@ function App() {
   useEffect(() => {
     if (file) uploadFile()
   }, [file])
+
+  if (authLoading) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+  }
+
+  if (!loggedIn) {
+    return <Login />
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -77,21 +59,35 @@ function App() {
 
   return (
     <div className="min-h-screen p-4">
-      <h1 className="text-3xl font-bold text-center mb-2">Groggy</h1>
-      <div className="flex items-center justify-center">
-        <Card className="w-full max-w-sm border">
-        <CardContent className="p-2 space-y-2">
-          <Input id="file" ref={inputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-        </CardContent>
-        <CardFooter className="flex justify-center">
-          <Button size="lg" onClick={handleScanClick} disabled={loading} className="rounded-none">
-            {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
-          </Button>
-        </CardFooter>
-        </Card>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold">Groggy</h1>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar className="cursor-pointer">
+              <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <div className="p-2">
+              <div className="font-semibold">{user?.name}</div>
+              <div className="text-sm text-muted-foreground">{user?.email}</div>
+            </div>
+            <DropdownMenuItem onClick={logout}>
+              Sign Out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-       {extraction && <LineItems storeInfo={extraction.storeInfo} items={extraction.itemList} total={extraction.paymentSummary.totalAmount} />}
-    </div>
+      <div className="flex items-center justify-center">
+        <Input id="file" ref={inputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+        <Button size="lg" onClick={handleScanClick} disabled={loading} className="rounded-none">
+          {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
+        </Button>
+      </div>
+       <div className="flex justify-center">
+         <ReceiptDisplay extraction={extraction} />
+       </div>
+     </div>
   )
 }
 

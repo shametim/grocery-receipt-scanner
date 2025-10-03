@@ -1,9 +1,6 @@
 import { useEffect, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-interface LoginProps {
-  onLogin: () => void
-}
+import { useAuth } from '../AuthContext'
 
 declare global {
   interface Window {
@@ -19,7 +16,8 @@ declare global {
   }
 }
 
-export default function Login({ onLogin }: LoginProps) {
+export default function Login() {
+  const { login } = useAuth()
   const buttonRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -54,7 +52,8 @@ export default function Login({ onLogin }: LoginProps) {
                   body: JSON.stringify({ id_token: response.credential }),
                 })
                 if (res.ok) {
-                  onLogin()
+                  const data = await res.json()
+                  login(data.user)
                 } else {
                   console.error("Sign-in failed")
                 }
@@ -75,18 +74,14 @@ export default function Login({ onLogin }: LoginProps) {
     }
 
     loadGoogleScript()
-  }, [onLogin])
+  }, [login])
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <Card className="w-full max-w-sm border-none shadow-none">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-center">Sign In</CardTitle>
-        </CardHeader>
-        <CardContent className="p-2">
-          <div ref={buttonRef} className="flex justify-center" />
-        </CardContent>
-      </Card>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundImage: 'url(/hi.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="text-center">
+        <h1 className="text-6xl font-bold text-white mb-12 font-serif">Scan Your Grocery Receipts</h1>
+        <div ref={buttonRef} className="flex justify-center" />
+      </div>
     </div>
   )
 }
