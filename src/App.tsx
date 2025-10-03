@@ -168,7 +168,7 @@ function App() {
           <Button size="lg" onClick={handleScanClick} disabled={loading} className="fixed bottom-4 right-4 rounded-none">
             {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
           </Button>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {fetchLoading ? (
               <div className="text-center">Loading receipts...</div>
             ) : receipts && receipts.length > 0 ? (

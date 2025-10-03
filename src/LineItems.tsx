@@ -1,4 +1,4 @@
- import { type Item, type StoreInfo } from './types'
+import { type Item, type StoreInfo } from './types'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 
@@ -14,7 +14,7 @@ function LineItems({ storeInfo, items, total, showDetails = false }: LineItemsPr
   const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   const shortDate = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
   const cardContent = (
-    <Card className={`w-full ${!showDetails ? "py-0" : ""}`}>
+    <Card className={`w-full `}>
       <CardHeader>
         {showDetails ? (
           <>
