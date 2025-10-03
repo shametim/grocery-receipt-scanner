@@ -1,7 +1,6 @@
  import { type Item, type StoreInfo } from './types'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
-import { Link } from 'react-router-dom'
 
 interface LineItemsProps {
   storeInfo: StoreInfo
@@ -64,7 +63,7 @@ function LineItems({ storeInfo, items, total, showDetails = false }: LineItemsPr
     </Card>
   )
 
-  const card = showDetails ? cardContent : <Link to="/receipts/1">{cardContent}</Link>
+  const card = cardContent
 
   return (
     <div className="w-full">

@@ -45,3 +45,14 @@ export interface Extraction {
   savingsSummary: SavingsSummary;
   accountInfo: AccountInfo;
 }
+
+export interface Receipt {
+  id: number;
+  store_name: string;
+  address: string;
+  transaction_date: string;
+  total_amount: number;
+  items: Item[];
+  user_id: string;
+  created_at: string;
+}

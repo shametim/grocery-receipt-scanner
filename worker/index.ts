@@ -1,6 +1,15 @@
 import { Hono } from "hono";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
+// Enhanced error logging function
+const logError = (context: string, error: any, additional?: any) => {
+  console.error(`[${new Date().toISOString()}] ERROR ${context}:`, {
+    error: error instanceof Error ? error.message : String(error),
+    stack: error instanceof Error ? error.stack : undefined,
+    ...additional
+  });
+};
+
 interface ParseResponse {
   markdown: string;
 }
@@ -130,6 +139,31 @@ app.get("/api/receipts/:userId", async (c) => {
   const userId = c.req.param("userId");
   const { results } = await c.env.DB.prepare("SELECT * FROM receipts WHERE user_id = ? ORDER BY created_at DESC").bind(userId).all();
   return c.json(results);
+});
+
+app.get("/api/receipts/:userId/:id", async (c) => {
+  const userId = c.req.param("userId");
+  const receiptId = c.req.param("id");
+
+  try {
+    const { results } = await c.env.DB.prepare(
+      "SELECT * FROM receipts WHERE user_id = ? AND id = ?"
+    ).bind(userId, receiptId).all();
+
+    if (results.length === 0) {
+      console.error(`Receipt ${receiptId} not found for user ${userId}`);
+      return c.json({ error: "Receipt not found" }, 404);
+    }
+
+    const receipt = results[0] as any;
+    return c.json({
+      ...receipt,
+      items: JSON.parse(receipt.items)
+    });
+  } catch (error) {
+    console.error(`Error fetching receipt ${receiptId} for user ${userId}:`, error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
 });
 
 const schema = {
@@ -349,23 +383,24 @@ const schema = {
 };
 
 app.post("/api/extract", async (c) => {
+  const formData = await c.req.formData();
+  const file = formData.get("document") as File;
+  const userId = formData.get("user_id") as string;
+
   try {
-    const formData = await c.req.formData();
-    const file = formData.get("document") as File;
-    const userId = formData.get("user_id") as string;
     if (!file) {
-      console.error("No file provided");
+      logError("extract-endpoint", "No file provided", { userId });
       return c.json({ error: "No file provided" }, 400);
     }
     if (!userId) {
-      console.error("No user_id provided");
+      logError("extract-endpoint", "No user_id provided");
       return c.json({ error: "No user_id provided" }, 400);
     }
-    console.log("File received:", file.name);
+    console.log(`[${new Date().toISOString()}] File received: ${file.name} for user ${userId}`);
 
     const apiKey = c.env.API_KEY;
     if (!apiKey) {
-      console.error("API key not set");
+      logError("extract-endpoint", "API key not set", { userId });
       return c.json({ error: "API key not set" }, 500);
     }
 
@@ -375,7 +410,7 @@ app.post("/api/extract", async (c) => {
   const parseFormData = new FormData();
   parseFormData.append("document", file);
   parseFormData.append("model", "dpt-2-latest");
-  console.log("Sending parse request for file:", file.name);
+  console.log(`[${new Date().toISOString()}] Sending parse request for file: ${file.name} (${file.size} bytes)`);
 
   const parseResponse = await fetch("https://api.va.landing.ai/v1/ade/parse", {
     method: "POST",
@@ -384,19 +419,23 @@ app.post("/api/extract", async (c) => {
   });
 
   if (!parseResponse.ok) {
-    console.error("Parse failed with status:", parseResponse.status);
+    logError("extract-endpoint-parse", `Parse API failed with status ${parseResponse.status}`, {
+      userId,
+      fileName: file.name,
+      status: parseResponse.status
+    });
     return c.json({ error: "Parse failed" }, 500);
   }
 
   const parseJson = await parseResponse.json() as ParseResponse;
   const markdownContent = parseJson.markdown;
-  console.log("Parse response received");
+  console.log(`[${new Date().toISOString()}] Parse response received for ${file.name}`);
 
   // Extract fields
   const extractFormData = new FormData();
   extractFormData.append("markdown", new Blob([markdownContent], { type: "text/plain" }));
   extractFormData.append("schema", JSON.stringify(schema));
-  console.log("Sending extract request");
+  console.log(`[${new Date().toISOString()}] Sending extract request for ${file.name}`);
 
   const extractResponse = await fetch("https://api.va.landing.ai/v1/ade/extract", {
     method: "POST",
@@ -405,32 +444,55 @@ app.post("/api/extract", async (c) => {
   });
 
   if (!extractResponse.ok) {
-    console.error("Extract failed with status:", extractResponse.status);
+    logError("extract-endpoint-extract", `Extract API failed with status ${extractResponse.status}`, {
+      userId,
+      fileName: file.name,
+      status: extractResponse.status
+    });
     return c.json({ error: "Extract failed" }, 500);
   }
 
    // eslint-disable-next-line @typescript-eslint/no-explicit-any
    const extractJson = await extractResponse.json() as any;
-   console.log("Extract response received");
+   console.log(`[${new Date().toISOString()}] Extract response received for ${file.name}`);
 
-   // Store in database
-   const { meta } = await c.env.DB.prepare(
-     "INSERT INTO receipts (store_name, address, transaction_date, total_amount, items, user_id) VALUES (?, ?, ?, ?, ?, ?)"
-   ).bind(
-     extractJson.storeInfo?.storeName || '',
-     extractJson.storeInfo?.address || '',
-     extractJson.storeInfo?.transactionDate || '',
-     extractJson.paymentSummary?.totalAmount || 0,
-     JSON.stringify(extractJson.itemList || []),
-     userId
-   ).run();
+    // Validate extraction data before storage
+    if (!extractJson.extraction?.storeInfo?.storeName || !extractJson.extraction?.paymentSummary?.totalAmount) {
+      logError("extract-validation", "Missing required extraction data", {
+        hasExtraction: !!extractJson.extraction,
+        hasStoreInfo: !!extractJson.extraction?.storeInfo,
+        hasPaymentSummary: !!extractJson.extraction?.paymentSummary,
+        extractJson
+      });
+      return c.json({ error: "Failed to extract required receipt data from image" }, 400);
+    }
 
-   console.log("Receipt stored in database");
-    return c.json({ ...extractJson, receiptId: meta.last_row_id });
-   } catch (error) {
-     console.error("Error in extract endpoint:", error);
-     return c.json({ error: "Internal server error" }, 500);
-   }
+    // Store in database
+    try {
+      const { meta } = await c.env.DB.prepare(
+        "INSERT INTO receipts (store_name, address, transaction_date, total_amount, items, user_id) VALUES (?, ?, ?, ?, ?, ?)"
+      ).bind(
+        extractJson.extraction.storeInfo?.storeName || '',
+        extractJson.extraction.storeInfo?.address || '',
+        extractJson.extraction.storeInfo?.transactionDate || '',
+        extractJson.extraction.paymentSummary?.totalAmount || 0,
+        JSON.stringify(extractJson.extraction.itemList || []),
+        userId
+      ).run();
+
+      console.log(`[${new Date().toISOString()}] Receipt stored in database for user ${userId}, ID: ${meta.last_row_id}`);
+      return c.json({
+        extraction: extractJson.extraction,
+        receiptId: meta.last_row_id
+      });
+    } catch (dbError) {
+      logError("extract-endpoint-db", dbError, { userId, fileName: file.name });
+      return c.json({ error: "Database error" }, 500);
+    }
+    } catch (error) {
+      logError("extract-endpoint", error, { userId, fileName: file.name });
+      return c.json({ error: "Internal server error" }, 500);
+    }
  });
 
 app.get("/auth/config", (c) => {
@@ -439,22 +501,22 @@ app.get("/auth/config", (c) => {
 
 app.post("/auth/google", async (c) => {
   try {
-    console.log("Auth request received");
+    console.log(`[${new Date().toISOString()}] Auth request received`);
     const { id_token } = await c.req.json() as { id_token: string };
-    console.log("ID token received, verifying...");
+    console.log(`[${new Date().toISOString()}] ID token received, verifying...`);
     const claims = await verifyGoogleIdToken(c, id_token);
-    console.log("Claims verified:", claims);
-    console.log("Upserting user...");
+    console.log(`[${new Date().toISOString()}] Claims verified for user: ${claims.sub}`);
+    console.log(`[${new Date().toISOString()}] Upserting user: ${claims.sub}`);
     await upsertUser(c, { id: claims.sub, name: claims.name, email: claims.email });
-    console.log("User upserted, creating session...");
+    console.log(`[${new Date().toISOString()}] User upserted, creating session for: ${claims.sub}`);
     const { sid, expires } = await createSession(c, claims.sub);
-    console.log("Session created, sid:", sid);
+    console.log(`[${new Date().toISOString()}] Session created, sid: ${sid}`);
     const cookie = setSessionCookie(sid, expires);
     return c.json({ user: { id: claims.sub, name: claims.name, email: claims.email } }, {
       headers: { "Set-Cookie": cookie }
     });
   } catch (err) {
-    console.error("Auth failed:", err instanceof Error ? err.message : String(err), err instanceof Error ? err.stack : undefined);
+    logError("auth-google", err, { timestamp: new Date().toISOString() });
     return c.json({ error: "Authentication failed" }, 401);
   }
 });
