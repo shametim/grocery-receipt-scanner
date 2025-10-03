@@ -1,71 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Routes, Route, Navigate, Link, useParams } from 'react-router-dom'
-
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { type Receipt } from './types'
-import ReceiptDisplay from './ReceiptDisplay'
 import Login from './components/Login'
 import { useAuth } from './AuthContext'
-
-interface ReceiptDetailPageProps {
-  fetchReceipt: (id: string) => void
-  selectedReceipt: Receipt | null
-  fetchLoading: boolean
-  user: any
-  logout: () => void
-}
-
-function ReceiptDetailPage({ fetchReceipt, selectedReceipt, fetchLoading, user, logout }: ReceiptDetailPageProps) {
-  const { id } = useParams()
-
-  useEffect(() => {
-    if (id) {
-      fetchReceipt(id)
-    }
-  }, [id, fetchReceipt])
-
-  return (
-    <div className="min-h-screen p-4">
-      <div className="flex justify-between items-center mb-4 border-b pb-4">
-        <h1 className="text-3xl font-bold">Groggy</h1>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar className="cursor-pointer">
-              <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="p-2">
-              <div className="font-semibold">{user?.name}</div>
-              <div className="text-sm text-muted-foreground">{user?.email}</div>
-            </div>
-            <DropdownMenuItem onClick={logout}>
-              Sign Out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="mb-4">
-        <Link to="/receipts">
-          <Button variant="outline">Back to Receipts</Button>
-        </Link>
-      </div>
-      <div className="flex justify-center">
-        {fetchLoading ? (
-          <div>Loading receipt...</div>
-        ) : selectedReceipt ? (
-          <ReceiptDisplay receipt={selectedReceipt} showDetails={true} />
-        ) : (
-          <div>Receipt not found</div>
-        )}
-      </div>
-    </div>
-  )
-}
+import Header from './Header'
+import ReceiptsPage from './ReceiptsPage'
+import ReceiptDetailPage from './ReceiptDetailPage'
 
 function App() {
   const { loggedIn, user, authLoading, logout } = useAuth()
@@ -164,48 +105,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/receipts" />} />
-      <Route path="/receipts" element={
-        <div className="min-h-screen p-4">
-          <div className="flex justify-between items-center mb-4 border-b pb-4">
-            <h1 className="text-3xl font-bold">Groggy</h1>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <div className="p-2">
-                  <div className="font-semibold">{user?.name}</div>
-                  <div className="text-sm text-muted-foreground">{user?.email}</div>
-                </div>
-                <DropdownMenuItem onClick={logout}>
-                  Sign Out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-          <Input id="file" ref={inputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-          <Button size="lg" onClick={handleScanClick} disabled={loading} className="fixed bottom-4 right-4 rounded-none">
-            {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
-          </Button>
-          <div className="space-y-6">
-            {fetchLoading ? (
-              <div className="text-center">Loading receipts...</div>
-            ) : receipts && receipts.length > 0 ? (
-              receipts.map((receipt) => (
-                <Link key={receipt.id} to={`/receipts/${receipt.id}`}>
-                  <ReceiptDisplay receipt={receipt} />
-                </Link>
-              ))
-            ) : (
-              <div className="text-center text-muted-foreground">
-                No receipts yet. Scan your first grocery receipt!
-              </div>
-            )}
-          </div>
-        </div>
-      } />
+      <Route path="/receipts" element={<ReceiptsPage receipts={receipts} fetchLoading={fetchLoading} user={user} logout={logout} handleFileChange={handleFileChange} handleScanClick={handleScanClick} inputRef={inputRef} loading={loading} />} />
       <Route path="/receipts/:id" element={<ReceiptDetailPage fetchReceipt={fetchReceipt} selectedReceipt={selectedReceipt} fetchLoading={fetchLoading} user={user} logout={logout} />} />
     </Routes>
   )
