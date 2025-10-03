@@ -15,9 +15,11 @@ interface ReceiptDetailPageProps {
   fetchReceipt: (id: string) => void
   selectedReceipt: Receipt | null
   fetchLoading: boolean
+  user: any
+  logout: () => void
 }
 
-function ReceiptDetailPage({ fetchReceipt, selectedReceipt, fetchLoading }: ReceiptDetailPageProps) {
+function ReceiptDetailPage({ fetchReceipt, selectedReceipt, fetchLoading, user, logout }: ReceiptDetailPageProps) {
   const { id } = useParams()
 
   useEffect(() => {
@@ -28,6 +30,25 @@ function ReceiptDetailPage({ fetchReceipt, selectedReceipt, fetchLoading }: Rece
 
   return (
     <div className="min-h-screen p-4">
+      <div className="flex justify-between items-center mb-4 border-b pb-4">
+        <h1 className="text-3xl font-bold">Groggy</h1>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Avatar className="cursor-pointer">
+              <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <div className="p-2">
+              <div className="font-semibold">{user?.name}</div>
+              <div className="text-sm text-muted-foreground">{user?.email}</div>
+            </div>
+            <DropdownMenuItem onClick={logout}>
+              Sign Out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div className="mb-4">
         <Link to="/receipts">
           <Button variant="outline">Back to Receipts</Button>
@@ -185,7 +206,7 @@ function App() {
           </div>
         </div>
       } />
-      <Route path="/receipts/:id" element={<ReceiptDetailPage fetchReceipt={fetchReceipt} selectedReceipt={selectedReceipt} fetchLoading={fetchLoading} />} />
+      <Route path="/receipts/:id" element={<ReceiptDetailPage fetchReceipt={fetchReceipt} selectedReceipt={selectedReceipt} fetchLoading={fetchLoading} user={user} logout={logout} />} />
     </Routes>
   )
 }

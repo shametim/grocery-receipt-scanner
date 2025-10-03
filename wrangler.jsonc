@@ -38,7 +38,7 @@
 	 */
 	"vars": {
 		"GOOGLE_CLIENT_ID": "779190151425-0l3bgjadomkg90238dtbfmj24ma8eopn.apps.googleusercontent.com",
-		"JWT_SECRET": "change-me-dev-secret"
+		"JWT_SECRET": "change-me-dev-secret" // BAD: DO NOT LOOK, TO BE CHANGED BEFORE ACTUALLY MADE PUBLIC
 	}
 	/**
 	 * Note: Use secrets to store sensitive data.
