@@ -1,5 +1,6 @@
 import { type Extraction, type Receipt } from './types'
-import LineItems from './LineItems'
+import ReceiptSummaryCard from './ReceiptSummaryCard'
+import ReceiptDetailCard from './ReceiptDetailCard'
 
 interface ReceiptDisplayProps {
   extraction?: Extraction | null
@@ -31,7 +32,15 @@ function ReceiptDisplay({ extraction, receipt, showDetails = false }: ReceiptDis
     return null
   }
 
-  return <LineItems storeInfo={storeInfo} items={items} total={total} showDetails={showDetails} />
+  return (
+    <div className="w-full">
+      {showDetails ? (
+        <ReceiptDetailCard storeInfo={storeInfo} items={items} total={total} />
+      ) : (
+        <ReceiptSummaryCard storeInfo={storeInfo} total={total} />
+      )}
+    </div>
+  )
 }
 
 export default ReceiptDisplay
