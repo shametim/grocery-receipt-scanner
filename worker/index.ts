@@ -225,12 +225,20 @@ const schema = {
 };
 
 app.post("/api/extract", async (c) => {
-  const formData = await c.req.formData();
-  const file = formData.get("document") as File;
-  if (!file) return c.json({ error: "No file provided" }, 400);
+  try {
+    const formData = await c.req.formData();
+    const file = formData.get("document") as File;
+    if (!file) {
+      console.error("No file provided");
+      return c.json({ error: "No file provided" }, 400);
+    }
+    console.log("File received:", file.name);
 
-  const apiKey = c.env.API_KEY;
-  if (!apiKey) return c.json({ error: "API key not set" }, 500);
+    const apiKey = c.env.API_KEY;
+    if (!apiKey) {
+      console.error("API key not set");
+      return c.json({ error: "API key not set" }, 500);
+    }
 
   const headers = { "Authorization": `Basic ${apiKey}` };
 
@@ -238,6 +246,7 @@ app.post("/api/extract", async (c) => {
   const parseFormData = new FormData();
   parseFormData.append("document", file);
   parseFormData.append("model", "dpt-2-latest");
+  console.log("Sending parse request for file:", file.name);
 
   const parseResponse = await fetch("https://api.va.landing.ai/v1/ade/parse", {
     method: "POST",
@@ -245,15 +254,20 @@ app.post("/api/extract", async (c) => {
     body: parseFormData,
   });
 
-  if (!parseResponse.ok) return c.json({ error: "Parse failed" }, 500);
+  if (!parseResponse.ok) {
+    console.error("Parse failed with status:", parseResponse.status);
+    return c.json({ error: "Parse failed" }, 500);
+  }
 
   const parseJson = await parseResponse.json() as ParseResponse;
   const markdownContent = parseJson.markdown;
+  console.log("Parse response received");
 
   // Extract fields
   const extractFormData = new FormData();
   extractFormData.append("markdown", new Blob([markdownContent], { type: "text/plain" }));
   extractFormData.append("schema", JSON.stringify(schema));
+  console.log("Sending extract request");
 
   const extractResponse = await fetch("https://api.va.landing.ai/v1/ade/extract", {
     method: "POST",
@@ -261,11 +275,19 @@ app.post("/api/extract", async (c) => {
     body: extractFormData,
   });
 
-  if (!extractResponse.ok) return c.json({ error: "Extract failed" }, 500);
+  if (!extractResponse.ok) {
+    console.error("Extract failed with status:", extractResponse.status);
+    return c.json({ error: "Extract failed" }, 500);
+  }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const extractJson = await extractResponse.json() as any;
+  console.log("Extract response received");
   return c.json(extractJson);
+  } catch (error) {
+    console.error("Error in extract endpoint:", error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
 });
 
 export default app;
