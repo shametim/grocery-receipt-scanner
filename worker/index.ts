@@ -1,10 +1,128 @@
 import { Hono } from "hono";
+import { createRemoteJWKSet, jwtVerify } from "jose";
 
 interface ParseResponse {
   markdown: string;
 }
 
-const app = new Hono<{ Bindings: Env }>();
+const GOOGLE_JWKS = createRemoteJWKSet(new URL("https://www.googleapis.com/oauth2/v3/certs"));
+const VALID_ISSUERS = new Set(["https://accounts.google.com", "accounts.google.com"]);
+
+type GoogleClaims = {
+  sub: string;
+  email?: string;
+  name?: string;
+};
+
+const DEFAULT_SESSION_DAYS = 30;
+const SECONDS_IN_DAY = 24 * 60 * 60;
+
+type MyEnv = {
+  GOOGLE_CLIENT_ID: string;
+  JWT_SECRET: string;
+  DB: D1Database;
+  API_KEY: string;
+};
+
+const app = new Hono<{ Bindings: MyEnv }>();
+
+async function verifyGoogleIdToken(c: { env: MyEnv }, idToken: string): Promise<GoogleClaims> {
+  const GOOGLE_CLIENT_ID = c.env.GOOGLE_CLIENT_ID;
+  if (!GOOGLE_CLIENT_ID) {
+    throw new Error("GOOGLE_CLIENT_ID is not configured");
+  }
+  if (!idToken) {
+    throw new Error("Missing Google ID token");
+  }
+
+  const { payload } = await jwtVerify(idToken, GOOGLE_JWKS, {
+    audience: GOOGLE_CLIENT_ID,
+  });
+
+  validatePayload(payload);
+
+  const sub = payload.sub as string;
+  const email = typeof payload.email === "string" ? payload.email : undefined;
+  const name = typeof payload.name === "string" ? payload.name : undefined;
+
+  return { sub, email, name };
+}
+
+function validatePayload(payload: any): asserts payload is any & { sub: string } {
+  const iss = payload.iss;
+  if (typeof iss !== "string" || !VALID_ISSUERS.has(iss)) {
+    throw new Error("Invalid Google issuer");
+  }
+  if (typeof payload.sub !== "string" || payload.sub.length === 0) {
+    throw new Error("Invalid Google subject");
+  }
+}
+
+async function upsertUser(c: { env: MyEnv }, { id, name, email }: { id: string; name?: string | null; email?: string | null }) {
+  if (!id) throw new Error("User id is required");
+  return await c.env.DB.prepare(
+    `INSERT INTO users (id, name, email) VALUES (?, ?, ?)
+     ON CONFLICT(id) DO UPDATE SET name = excluded.name, email = excluded.email`
+  ).bind(id, name ?? null, email ?? null).run();
+}
+
+async function createSession(c: { env: MyEnv }, userId: string, days = DEFAULT_SESSION_DAYS): Promise<{ sid: string; expires: number }> {
+  if (!userId) throw new Error("User id is required for session");
+  const sid = crypto.randomUUID();
+  const now = Math.floor(Date.now() / 1000);
+  const expires = now + Math.max(1, Math.floor(days * SECONDS_IN_DAY));
+  await c.env.DB.prepare(
+    `INSERT INTO sessions (sid, user_id, expires_at, last_seen) VALUES (?, ?, ?, ?)`
+  ).bind(sid, userId, expires, now).run();
+  return { sid, expires };
+}
+
+function setSessionCookie(sid: string, expires: number): string {
+  const now = Math.floor(Date.now() / 1000);
+  const maxAge = Math.max(0, expires - now);
+  return `sid=${sid}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`;
+}
+
+function parseCookies(header: string | undefined): Map<string, string> {
+  const map = new Map<string, string>();
+  if (!header) return map;
+  const parts = header.split(/;\s*/);
+  for (const part of parts) {
+    if (!part) continue;
+    const eq = part.indexOf("=");
+    if (eq === -1) continue;
+    const key = part.slice(0, eq).trim();
+    const value = part.slice(eq + 1).trim();
+    if (key) map.set(key, decodeURIComponent(value));
+  }
+  return map;
+}
+
+async function getSession(c: { env: MyEnv; req: { header: (name: string) => string | undefined } }): Promise<{ sid: string; userId: string; name: string | null; newExp: number } | null> {
+  const cookies = parseCookies(c.req.header("cookie"));
+  const sid = cookies.get("sid");
+  if (!sid) return null;
+
+  const { results } = await c.env.DB.prepare(
+    `SELECT sessions.sid as sid, sessions.user_id as user_id, sessions.expires_at as expires_at, users.name as name
+     FROM sessions JOIN users ON users.id = sessions.user_id WHERE sessions.sid = ?`
+  ).bind(sid).all();
+  if (results.length === 0) return null;
+
+  const record = results[0] as any;
+  const now = Math.floor(Date.now() / 1000);
+  if (record.expires_at <= now) {
+    await c.env.DB.prepare(`DELETE FROM sessions WHERE sid = ?`).bind(sid).run();
+    return null;
+  }
+
+  const newExp = now + DEFAULT_SESSION_DAYS * SECONDS_IN_DAY;
+  await c.env.DB.prepare(
+    `UPDATE sessions SET expires_at = ?, last_seen = ? WHERE sid = ?`
+  ).bind(newExp, now, sid).run();
+
+  return { sid, userId: record.user_id, name: record.name ?? null, newExp };
+}
 
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
 
@@ -308,11 +426,45 @@ app.post("/api/extract", async (c) => {
    ).run();
 
    console.log("Receipt stored in database");
-   return c.json({ ...extractJson, receiptId: meta.last_row_id });
-  } catch (error) {
-    console.error("Error in extract endpoint:", error);
-    return c.json({ error: "Internal server error" }, 500);
+    return c.json({ ...extractJson, receiptId: meta.last_row_id });
+   } catch (error) {
+     console.error("Error in extract endpoint:", error);
+     return c.json({ error: "Internal server error" }, 500);
+   }
+ });
+
+app.get("/auth/config", (c) => {
+  return c.json({ googleClientId: c.env.GOOGLE_CLIENT_ID ?? null });
+});
+
+app.post("/auth/google", async (c) => {
+  try {
+    console.log("Auth request received");
+    const { id_token } = await c.req.json() as { id_token: string };
+    console.log("ID token received, verifying...");
+    const claims = await verifyGoogleIdToken(c, id_token);
+    console.log("Claims verified:", claims);
+    console.log("Upserting user...");
+    await upsertUser(c, { id: claims.sub, name: claims.name, email: claims.email });
+    console.log("User upserted, creating session...");
+    const { sid, expires } = await createSession(c, claims.sub);
+    console.log("Session created, sid:", sid);
+    const cookie = setSessionCookie(sid, expires);
+    return c.json({ user: { id: claims.sub, name: claims.name } }, {
+      headers: { "Set-Cookie": cookie }
+    });
+  } catch (err) {
+    console.error("Auth failed:", err instanceof Error ? err.message : String(err), err instanceof Error ? err.stack : undefined);
+    return c.json({ error: "Authentication failed" }, 401);
   }
+});
+
+app.get("/me", async (c) => {
+  const session = await getSession(c);
+  if (!session) {
+    return c.json({ user: null }, 401);
+  }
+  return c.json({ user: { id: session.userId, name: session.name } });
 });
 
 export default app;

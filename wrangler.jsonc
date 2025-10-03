@@ -31,12 +31,15 @@
 			"database_name": "receipts-db",
 			"database_id": "61bebc0a-056d-4345-8f2b-aaf85315648a"
 		}
-	]
+	],
 	/**
 	 * Environment Variables
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
 	 */
-	// "vars": { "MY_VARIABLE": "production_value" }
+	"vars": {
+		"GOOGLE_CLIENT_ID": "779190151425-0l3bgjadomkg90238dtbfmj24ma8eopn.apps.googleusercontent.com",
+		"JWT_SECRET": "change-me-dev-secret"
+	}
 	/**
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
