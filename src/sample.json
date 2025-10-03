@@ -1,0 +1,1334 @@
+{
+  "extraction": {
+    "storeInfo": {
+      "storeName": "Kroger",
+      "address": "400 S. MAPLE, ANN ARBOR MI 48103",
+      "cashierName": "Shari",
+      "transactionDate": "2025-07-23",
+      "transactionTime": "15:50"
+    },
+    "paymentSummary": {
+      "paymentMethod": "VISA CREDIT",
+      "totalAmount": 123.42,
+      "changeGiven": 0,
+      "itemsSold": 39,
+      "referenceNumber": "08634D"
+    },
+    "itemList": [
+      {
+        "itemName": "GUERNSEY MILK",
+        "itemPrice": 5.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "ATHENS PASTRY",
+        "itemPrice": 5.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "ATHENS PASTRY",
+        "itemPrice": 5.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SC HTGF CHK BRST BLSLPC",
+        "itemPrice": 12.67,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "DANNON YOGURT",
+        "itemPrice": 3.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "DANNON YOGURT",
+        "itemPrice": 4.49,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SOURDOUGH",
+        "itemPrice": 4.49,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SNSDYNE TOOTHPASTE",
+        "itemPrice": 12.99,
+        "itemType": "T",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "LABR BAGUETTE",
+        "itemPrice": 2.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "PRSL CHIANTI CHUB",
+        "itemPrice": 6.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "POTATO",
+        "itemPrice": 2.53,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SC WTRMLN SDLS",
+        "itemPrice": 4.49,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "EGGPLANT",
+        "itemPrice": 1.79,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "CUCUMBERS",
+        "itemPrice": 3,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "ONIONS",
+        "itemPrice": 2,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SWEET CORN",
+        "itemPrice": 2,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "PEPPERS CUBANELLE",
+        "itemPrice": 3.14,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "CARROTS ORG",
+        "itemPrice": 2.49,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "ROMA TOMATO",
+        "itemPrice": 2.77,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "LEAF GRN ORG",
+        "itemPrice": 2.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "APPLES CSMC CRSP O",
+        "itemPrice": 2.73,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "LIMES",
+        "itemPrice": 1,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "PEACHES",
+        "itemPrice": 1.2,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "APPLES GALA ORG",
+        "itemPrice": 1.26,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "STO APPLES GALA",
+        "itemPrice": 2.43,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "NECTARINES",
+        "itemPrice": 1.41,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "GARLIC",
+        "itemPrice": 0.75,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "APRICOTS",
+        "itemPrice": 1.26,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "PLUMS BLACK",
+        "itemPrice": 1.52,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "CHIQ BANANAS",
+        "itemPrice": 1.39,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "LSTRNE MOUTHWASH PC",
+        "itemPrice": 7.49,
+        "itemType": "T",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "PARSLEY ORG",
+        "itemPrice": 1.99,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      },
+      {
+        "itemName": "SPINACH",
+        "itemPrice": 3.98,
+        "itemType": "F",
+        "weight": 0,
+        "unitPrice": 0
+      }
+    ],
+    "savingsSummary": {
+      "totalSavings": 3.21,
+      "totalCoupons": 3.21,
+      "annualCardSavings": 228.61,
+      "fuelPointsEarned": 122,
+      "totalFuelPoints": 177
+    },
+    "accountInfo": {
+      "customerId": "3771",
+      "cardType": "VISA CREDIT",
+      "cardLastDigits": "2078",
+      "aid": "A0000000031010",
+      "tc": "OF66465828663410"
+    }
+  },
+  "extraction_metadata": {
+    "storeInfo": {
+      "storeName": {
+        "value": "Kroger",
+        "references": [
+          "c602d7e6-8955-4694-92aa-575b48155b99"
+        ]
+      },
+      "address": {
+        "value": "400 S. MAPLE, ANN ARBOR MI 48103",
+        "references": [
+          "702528cd-5ee7-46cb-865d-87e9b2e7cb60",
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "cashierName": {
+        "value": "Shari",
+        "references": [
+          "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+        ]
+      },
+      "transactionDate": {
+        "value": "2025-07-23",
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128",
+          "51923836-0ce7-482a-8636-84ab70e480fc"
+        ]
+      },
+      "transactionTime": {
+        "value": "15:50",
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128",
+          "51923836-0ce7-482a-8636-84ab70e480fc"
+        ]
+      }
+    },
+    "paymentSummary": {
+      "paymentMethod": {
+        "value": "VISA CREDIT",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "totalAmount": {
+        "value": 123.42,
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "changeGiven": {
+        "value": 0,
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5",
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "itemsSold": {
+        "value": 39,
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5",
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "referenceNumber": {
+        "value": "08634D",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      }
+    },
+    "itemList": [
+      {
+        "itemName": {
+          "value": "GUERNSEY MILK",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 5.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "ATHENS PASTRY",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 5.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "ATHENS PASTRY",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 5.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SC HTGF CHK BRST BLSLPC",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 12.67,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "DANNON YOGURT",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 3.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "DANNON YOGURT",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 4.49,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SOURDOUGH",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 4.49,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SNSDYNE TOOTHPASTE",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 12.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "T",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "LABR BAGUETTE",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "PRSL CHIANTI CHUB",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 6.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "POTATO",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.53,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SC WTRMLN SDLS",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 4.49,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "EGGPLANT",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.79,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "CUCUMBERS",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 3,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "ONIONS",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SWEET CORN",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "PEPPERS CUBANELLE",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 3.14,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "CARROTS ORG",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.49,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "ROMA TOMATO",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.77,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "LEAF GRN ORG",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "APPLES CSMC CRSP O",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.73,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "LIMES",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "PEACHES",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.2,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "APPLES GALA ORG",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.26,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "STO APPLES GALA",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 2.43,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "NECTARINES",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.41,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "GARLIC",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 0.75,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "APRICOTS",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.26,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "PLUMS BLACK",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.52,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "CHIQ BANANAS",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.39,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "LSTRNE MOUTHWASH PC",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 7.49,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "T",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "PARSLEY ORG",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 1.99,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      },
+      {
+        "itemName": {
+          "value": "SPINACH",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemPrice": {
+          "value": 3.98,
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "itemType": {
+          "value": "F",
+          "references": [
+            "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+          ]
+        },
+        "weight": {
+          "value": 0,
+          "references": []
+        },
+        "unitPrice": {
+          "value": 0,
+          "references": []
+        }
+      }
+    ],
+    "savingsSummary": {
+      "totalSavings": {
+        "value": 3.21,
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "totalCoupons": {
+        "value": 3.21,
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "annualCardSavings": {
+        "value": 228.61,
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "fuelPointsEarned": {
+        "value": 122,
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      },
+      "totalFuelPoints": {
+        "value": 177,
+        "references": [
+          "b57fb86a-175f-40d1-bb51-32aff7d1c128"
+        ]
+      }
+    },
+    "accountInfo": {
+      "customerId": {
+        "value": "3771",
+        "references": [
+          "702528cd-5ee7-46cb-865d-87e9b2e7cb60"
+        ]
+      },
+      "cardType": {
+        "value": "VISA CREDIT",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "cardLastDigits": {
+        "value": "2078",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "aid": {
+        "value": "A0000000031010",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      },
+      "tc": {
+        "value": "OF66465828663410",
+        "references": [
+          "7b724334-10a9-400c-8294-7d70ed110ce5"
+        ]
+      }
+    }
+  },
+  "metadata": {
+    "filename": "markdown.md",
+    "org_id": null,
+    "duration_ms": 51749,
+    "credit_usage": 4.4,
+    "job_id": "lpvbc8m3bmjhbs1138h23wmd4",
+    "version": "extract-20250930"
+  }
+}
