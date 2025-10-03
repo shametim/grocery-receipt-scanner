@@ -8,6 +8,12 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
 
+app.get("/api/receipts/:userId", async (c) => {
+  const userId = c.req.param("userId");
+  const { results } = await c.env.DB.prepare("SELECT * FROM receipts WHERE user_id = ? ORDER BY created_at DESC").bind(userId).all();
+  return c.json(results);
+});
+
 const schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Markdown Document Field Extraction Schema",
@@ -228,9 +234,14 @@ app.post("/api/extract", async (c) => {
   try {
     const formData = await c.req.formData();
     const file = formData.get("document") as File;
+    const userId = formData.get("user_id") as string;
     if (!file) {
       console.error("No file provided");
       return c.json({ error: "No file provided" }, 400);
+    }
+    if (!userId) {
+      console.error("No user_id provided");
+      return c.json({ error: "No user_id provided" }, 400);
     }
     console.log("File received:", file.name);
 
@@ -280,10 +291,24 @@ app.post("/api/extract", async (c) => {
     return c.json({ error: "Extract failed" }, 500);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const extractJson = await extractResponse.json() as any;
-  console.log("Extract response received");
-  return c.json(extractJson);
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   const extractJson = await extractResponse.json() as any;
+   console.log("Extract response received");
+
+   // Store in database
+   const { meta } = await c.env.DB.prepare(
+     "INSERT INTO receipts (store_name, address, transaction_date, total_amount, items, user_id) VALUES (?, ?, ?, ?, ?, ?)"
+   ).bind(
+     extractJson.storeInfo?.storeName || '',
+     extractJson.storeInfo?.address || '',
+     extractJson.storeInfo?.transactionDate || '',
+     extractJson.paymentSummary?.totalAmount || 0,
+     JSON.stringify(extractJson.itemList || []),
+     userId
+   ).run();
+
+   console.log("Receipt stored in database");
+   return c.json({ ...extractJson, receiptId: meta.last_row_id });
   } catch (error) {
     console.error("Error in extract endpoint:", error);
     return c.json({ error: "Internal server error" }, 500);

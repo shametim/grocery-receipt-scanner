@@ -31,6 +31,7 @@ function App() {
     try {
       const formData = new FormData()
       formData.append('document', file)
+      formData.append('user_id', 'test-user') // TODO: Replace with actual user ID from auth
       const response = await fetch('/api/extract', { method: 'POST', body: formData })
       const data = await response.json()
       setExtraction(data.extraction)
