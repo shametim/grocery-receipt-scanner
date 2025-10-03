@@ -4,7 +4,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { type Receipt } from './types'
 import Login from './components/Login'
 import { useAuth } from './AuthContext'
-import Header from './Header'
 import ReceiptsPage from './ReceiptsPage'
 import ReceiptDetailPage from './ReceiptDetailPage'
 
