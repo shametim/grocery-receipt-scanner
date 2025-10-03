@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { type Receipt } from './types'
 import ReceiptDisplay from './ReceiptDisplay'
 import Header from './Header'
+import ItemsSection from './ItemsSection'
 
 interface ReceiptsPageProps {
   receipts: Receipt[] | null
@@ -24,20 +25,27 @@ function ReceiptsPage({ receipts, fetchLoading, user, logout, handleFileChange, 
       <Button size="lg" onClick={handleScanClick} disabled={loading} className="fixed bottom-4 right-4 rounded-none">
         {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
       </Button>
-      <div className="space-y-6">
-        {fetchLoading ? (
-          <div className="text-center">Loading receipts...</div>
-        ) : receipts && receipts.length > 0 ? (
-          receipts.map((receipt) => (
-            <Link key={receipt.id} to={`/receipts/${receipt.id}`}>
-              <ReceiptDisplay receipt={receipt} />
-            </Link>
-          ))
-        ) : (
-          <div className="text-center text-muted-foreground">
-            No receipts yet. Scan your first grocery receipt!
-          </div>
-        )}
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Receipt</h2>
+        <div className="space-y-6">
+          {fetchLoading ? (
+            <div className="text-center">Loading receipts...</div>
+          ) : receipts && receipts.length > 0 ? (
+            receipts.map((receipt) => (
+              <Link key={receipt.id} to={`/receipts/${receipt.id}`}>
+                <ReceiptDisplay receipt={receipt} />
+              </Link>
+            ))
+          ) : (
+            <div className="text-center text-muted-foreground">
+              No receipts yet. Scan your first grocery receipt!
+            </div>
+          )}
+        </div>
+      </div>
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Items</h2>
+        <ItemsSection receipts={receipts} />
       </div>
     </div>
   )
