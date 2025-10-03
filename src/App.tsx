@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { Routes, Route, Navigate, Link } from 'react-router-dom'
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -58,36 +59,51 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold">Groggy</h1>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar className="cursor-pointer">
-              <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="p-2">
-              <div className="font-semibold">{user?.name}</div>
-              <div className="text-sm text-muted-foreground">{user?.email}</div>
-            </div>
-            <DropdownMenuItem onClick={logout}>
-              Sign Out
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-      <div className="flex items-center justify-center">
-        <Input id="file" ref={inputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
-        <Button size="lg" onClick={handleScanClick} disabled={loading} className="rounded-none">
-          {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
-        </Button>
-      </div>
-       <div className="flex justify-center">
-         <ReceiptDisplay extraction={extraction} />
-       </div>
-     </div>
+    <Routes>
+      <Route path="/" element={<Navigate to="/receipts" />} />
+      <Route path="/receipts" element={
+        <div className="min-h-screen p-4">
+          <div className="flex justify-between items-center mb-4 border-b pb-4">
+            <h1 className="text-3xl font-bold">Groggy</h1>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <div className="p-2">
+                  <div className="font-semibold">{user?.name}</div>
+                  <div className="text-sm text-muted-foreground">{user?.email}</div>
+                </div>
+                <DropdownMenuItem onClick={logout}>
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <Input id="file" ref={inputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
+          <Button size="lg" onClick={handleScanClick} disabled={loading} className="fixed bottom-4 right-4 rounded-none">
+            {loading ? 'Scanning...' : 'Scan Your Grocery Receipt'}
+          </Button>
+          <div className="flex justify-center">
+            <ReceiptDisplay extraction={extraction} />
+          </div>
+        </div>
+      } />
+      <Route path="/receipts/:id" element={
+        <div className="min-h-screen p-4">
+          <div className="mb-4">
+            <Link to="/receipts">
+              <Button variant="outline">Back to Receipts</Button>
+            </Link>
+          </div>
+          <div className="flex justify-center">
+            <ReceiptDisplay extraction={extraction} showDetails={true} />
+          </div>
+        </div>
+      } />
+    </Routes>
   )
 }
 

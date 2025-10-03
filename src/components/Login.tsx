@@ -77,9 +77,10 @@ export default function Login() {
   }, [login])
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundImage: 'url(/hi.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <div className="text-center">
-        <h1 className="text-6xl font-bold text-white mb-12 font-serif">Scan Your Grocery Receipts</h1>
+        <h1 className="text-6xl font-bold text-black mb-12">Groggy</h1>
+        <h3 className="text-3xl font-bold text-black mb-12">Grocery Receipt Scanner</h3>
         <div ref={buttonRef} className="flex justify-center" />
       </div>
     </div>
