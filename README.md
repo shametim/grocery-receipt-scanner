@@ -1,3 +1,11 @@
+## Problem Statement
+
+Tracking individual items from grocery purchases is challenging, and itemizing receipts manually is tedious.
+
+## Sample User Story
+
+As a user, I want to track my monthly spending on tomatoes, see price increases at the same store, and find cheaper options at other stores.
+
 # Groggy - Grocery Receipt Scanner
 
 Groggy is a web app for scanning and managing grocery receipts. Upload a receipt photo, use AI-powered OCR (via Landing AI) to extract line items, store info, and totals, then view summaries or detailed breakdowns.
