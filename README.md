@@ -91,8 +91,3 @@ graph TD
 - `POST /extract`: Upload receipt, process with Landing AI, store in D1.
 - `GET /receipts/:userId`: Fetch user's receipts.
 - `GET /receipts/:userId/:id`: Fetch single receipt details.
-
-## Contributing
-
-- Report issues at https://github.com/sst/opencode/issues
-- For feedback, use the same link.
