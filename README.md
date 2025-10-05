@@ -1,4 +1,4 @@
-Check it out: https://groggy.martinshameti.workers.dev/receipts
+Check it out: https://groggy.martinshameti.workers.dev
 
 ## Problem Statement
 
@@ -13,6 +13,7 @@ As a user, I want to track my monthly spending on tomatoes, see price increases 
 Groggy is a web app for scanning and managing grocery receipts. Upload a receipt photo, use AI-powered OCR (via Landing AI) to extract line items, store info, and totals, then view summaries or detailed breakdowns.
 
 ## Features
+
 - **Receipt Upload**: Scan receipts via file upload (mobile/web compatible).
 - **OCR Extraction**: Automatic line item detection (item names, prices) and store details.
 - **Receipt Storage**: Securely store receipts in Cloudflare D1 database.
@@ -62,6 +63,7 @@ graph TD
 ```
 
 ## Tech Stack
+
 - **Frontend**: React, React Router, Tailwind CSS, Radix UI components.
 - **Backend**: Cloudflare Workers (serverless functions).
 - **Database**: Cloudflare D1 (SQLite-compatible).
@@ -70,6 +72,7 @@ graph TD
 - **Build Tools**: Vite, TypeScript, Bun.
 
 ## Setup
+
 1. Clone the repo: `git clone <repo-url>`
 2. Install dependencies: `bun install`
 3. Set up Cloudflare: Configure Wrangler for Workers/D1.
@@ -77,16 +80,19 @@ graph TD
 5. Deploy: `bun run deploy`
 
 ## Usage
+
 1. Log in to access your receipts.
 2. Click "Scan Your Grocery Receipt" to upload a photo.
 3. View extracted receipts in the list (store name, date, total).
 4. Click a receipt for details (full line items table).
 
 ## API Endpoints
+
 - `POST /extract`: Upload receipt, process with Landing AI, store in D1.
 - `GET /receipts/:userId`: Fetch user's receipts.
 - `GET /receipts/:userId/:id`: Fetch single receipt details.
 
 ## Contributing
+
 - Report issues at https://github.com/sst/opencode/issues
 - For feedback, use the same link.
