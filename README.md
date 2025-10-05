@@ -1,3 +1,5 @@
+Check it out: https://groggy.martinshameti.workers.dev/receipts
+
 ## Problem Statement
 
 Tracking individual items from grocery purchases is challenging, and itemizing receipts manually is tedious.
